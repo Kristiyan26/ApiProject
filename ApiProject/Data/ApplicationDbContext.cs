@@ -1,4 +1,5 @@
-﻿using ApiProject.Models;
+﻿using ApiProject.DTOs.Stock;
+using ApiProject.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiProject.Data
@@ -28,6 +29,9 @@ namespace ApiProject.Data
             base.OnModelCreating(modelBuilder);
         }
 
-
+        internal async Task<List<StockDto>> ToListAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

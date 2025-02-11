@@ -8,7 +8,6 @@
 
         public string CompanyName { get; set; }
 
-
         public decimal Purchase { get; set; }
 
         public decimal LastDiv { get; set; }

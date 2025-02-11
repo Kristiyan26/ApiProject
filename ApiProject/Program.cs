@@ -1,5 +1,7 @@
 
 using ApiProject.Data;
+using ApiProject.Repositories;
+using ApiProject.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiProject
@@ -21,6 +23,8 @@ namespace ApiProject
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));     
             });
+
+            builder.Services.AddScoped<IStockRepository, StockRepository>();
 
             var app = builder.Build();
 
