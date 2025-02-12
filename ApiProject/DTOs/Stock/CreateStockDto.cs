@@ -1,6 +1,8 @@
-﻿namespace ApiProject.DTOs.Stock
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ApiProject.DTOs.Stock
 {
-    public class UpdateStockRequestDto
+    public class CreateStockDto
     {
         public string Symbol { get; set; }
 
@@ -13,5 +15,6 @@
         public string Industry { get; set; }
 
         public long MarketCap { get; set; }
+
     }
 }

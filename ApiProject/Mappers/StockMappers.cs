@@ -22,7 +22,7 @@ namespace ApiProject.Mappers
 
         }
 
-        public static Stock ToStockFromCreateDto(this CreateStockRequestDto stockDto)
+        public static Stock ToStockFromCreateDto(this CreateStockDto stockDto)
         {
             return new Stock
             {
@@ -34,5 +34,7 @@ namespace ApiProject.Mappers
                MarketCap=stockDto.MarketCap
             };
         }
+
+       
     }
 }

@@ -1,4 +1,5 @@
-﻿using ApiProject.Models;
+﻿using ApiProject.DTOs.Comment;
+using ApiProject.Models;
 
 namespace ApiProject.Repositories.Interfaces
 {
@@ -6,6 +7,10 @@ namespace ApiProject.Repositories.Interfaces
     {
         Task<List<Comment>> GetAllAsync();
 
-        Task<Comment> GetByIdAsync(int id);
+        Task<Comment?> GetByIdAsync(int id);
+
+        Task<Comment> CreateAsync(Comment commentModel);
+
+        Task<Comment?> UpdateAsync(int id,Comment commentModel);
     }
 }

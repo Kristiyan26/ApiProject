@@ -10,7 +10,7 @@ namespace ApiProject.DTOs.Comment
 
         public string Content { get; set; }
 
-        public DateTime CreateOn { get; set; }
+        public DateTime CreateOn { get; set; } = DateTime.Now;
         public int StockId { get; set; }
 
     }

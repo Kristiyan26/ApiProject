@@ -50,7 +50,7 @@ namespace ApiProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateStockRequestDto stockDto)
+        public async Task<IActionResult> Create([FromBody] CreateStockDto stockDto)
         {
             Stock stockModel = stockDto.ToStockFromCreateDto();
 
@@ -62,7 +62,7 @@ namespace ApiProject.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateStockRequestDto updateDto)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateStockDto updateDto)
         {
             Stock stockModel = await _stockRepo.UpdateAsync(id,updateDto);  
             if (stockModel == null)

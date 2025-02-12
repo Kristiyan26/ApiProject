@@ -11,9 +11,11 @@ namespace ApiProject.Repositories.Interfaces
 
         Task<Stock> CreateAsync(Stock stockModel);
 
-        Task<Stock?> UpdateAsync(int id, UpdateStockRequestDto stockDto);
+        Task<Stock?> UpdateAsync(int id, UpdateStockDto stockDto);
 
         Task<Stock?> DeleteAsync(int id);   
+
+        Task<bool> StockExists(int id);
 
     }
 }
