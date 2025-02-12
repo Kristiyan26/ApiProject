@@ -1,4 +1,6 @@
-﻿namespace ApiProject.DTOs.Stock
+﻿using ApiProject.DTOs.Comment;
+
+namespace ApiProject.DTOs.Stock
 {
     public class StockDto
     {
@@ -15,6 +17,8 @@
         public string Industry { get; set; }
 
         public long MarketCap { get; set; }
+
+        public List<CommentDto> Comments { get; set; }
 
     }
 }
