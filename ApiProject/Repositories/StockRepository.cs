@@ -1,5 +1,6 @@
 ﻿using ApiProject.Data;
 using ApiProject.DTOs.Stock;
+using ApiProject.Helpers;
 using ApiProject.Models;
 using ApiProject.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -35,9 +36,20 @@ namespace ApiProject.Repositories
             return stockModel;
         }
 
-        public async Task<List<Stock>> GetAllAsync()
+        public async Task<List<Stock>> GetAllAsync(QueryObject query)
         {
-            return await _context.Stocks.Include(x=>x.Comments).ToListAsync();
+            IQueryable<Stock> stocks =  _context.Stocks.Include(x => x.Comments).AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(query.Symbol))
+            {
+                stocks = stocks.Where(s => s.Symbol == query.Symbol);   
+            }
+            if (!string.IsNullOrWhiteSpace(query.CompanyName))
+            {
+                stocks=stocks.Where(s=>s.CompanyName == query.CompanyName);
+            }
+
+            return await stocks.ToListAsync();
         }
 
         public async Task<Stock?> GetByIdAsync(int id)
