@@ -4,6 +4,7 @@ using ApiProject.Helpers;
 using ApiProject.Models;
 using ApiProject.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ApiProject.Repositories
 {
@@ -47,6 +48,13 @@ namespace ApiProject.Repositories
             if (!string.IsNullOrWhiteSpace(query.CompanyName))
             {
                 stocks=stocks.Where(s=>s.CompanyName == query.CompanyName);
+            }
+            if (!string.IsNullOrWhiteSpace(query.SortBy))
+            {
+                if (query.SortBy.Equals("Symbol",StringComparison.OrdinalIgnoreCase))
+                {
+                    stocks = query.IsDecsending ? stocks.OrderByDescending(s => s.Symbol) : stocks.OrderBy(s => s.Symbol);
+                }
             }
 
             return await stocks.ToListAsync();
