@@ -1,10 +1,13 @@
 ﻿using ApiProject.DTOs.Stock;
 using ApiProject.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
 
 namespace ApiProject.Data
 {
-    public class ApplicationDbContext:DbContext
+    public class ApplicationDbContext: IdentityDbContext<AppUser>
     {
 
         public DbSet<Stock> Stocks { get; set; }
