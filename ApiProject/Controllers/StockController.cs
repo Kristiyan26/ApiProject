@@ -4,6 +4,7 @@ using ApiProject.Helpers;
 using ApiProject.Mappers;
 using ApiProject.Models;
 using ApiProject.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,7 @@ namespace ApiProject.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
         {
             if (!ModelState.IsValid)
