@@ -10,7 +10,7 @@ namespace ApiProject.Services
     public class TokenService : ITokenService
     {
 
-        private readonly IConfiguration _config;
+        private readonly IConfiguration _config; // to accsess appsettings.json
         private readonly SymmetricSecurityKey _key;
         public TokenService(IConfiguration config)
         {

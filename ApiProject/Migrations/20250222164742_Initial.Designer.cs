@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250221213405_Initial")]
+    [Migration("20250222164742_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -135,6 +135,21 @@ namespace ApiProject.Migrations
                             StockId = 2,
                             Title = "Steady Growth"
                         });
+                });
+
+            modelBuilder.Entity("ApiProject.Models.Portfolio", b =>
+                {
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("StockId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AppUserId", "StockId");
+
+                    b.HasIndex("StockId");
+
+                    b.ToTable("Portfolios");
                 });
 
             modelBuilder.Entity("ApiProject.Models.Stock", b =>
@@ -351,6 +366,25 @@ namespace ApiProject.Migrations
                     b.Navigation("Stock");
                 });
 
+            modelBuilder.Entity("ApiProject.Models.Portfolio", b =>
+                {
+                    b.HasOne("ApiProject.Models.AppUser", "AppUser")
+                        .WithMany("Portfolios")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ApiProject.Models.Stock", "Stock")
+                        .WithMany("Portfolios")
+                        .HasForeignKey("StockId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Stock");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -402,9 +436,16 @@ namespace ApiProject.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ApiProject.Models.AppUser", b =>
+                {
+                    b.Navigation("Portfolios");
+                });
+
             modelBuilder.Entity("ApiProject.Models.Stock", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Portfolios");
                 });
 #pragma warning restore 612, 618
         }

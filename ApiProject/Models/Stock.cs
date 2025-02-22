@@ -22,6 +22,8 @@ namespace ApiProject.Models
 
         public List<Comment> Comments {  get; set; }
 
+        public List<Portfolio> Portfolios { get; set; }
+
 
     }
 }

@@ -13,6 +13,8 @@ namespace ApiProject.Data
 
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<Comment> Comments { get; set; }
+
+        public DbSet<Portfolio> Portfolios { get; set; }
         public ApplicationDbContext(DbContextOptions dbContextOptions)
             : base(dbContextOptions)
         {
@@ -20,10 +22,14 @@ namespace ApiProject.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Portfolio>(x => x.HasKey(p => new { p.AppUserId, p.StockId }));
+            modelBuilder.Entity<Portfolio>().HasOne(u => u.AppUser).WithMany(u => u.Portfolios).HasForeignKey(p => p.AppUserId);
+            modelBuilder.Entity<Portfolio>().HasOne(s => s.Stock).WithMany(s => s.Portfolios).HasForeignKey(p => p.StockId);
+
 
             modelBuilder.Entity<Stock>().HasData(
-            new Stock { Id = 1, Symbol = "AAPL", CompanyName = "Apple Inc.", Purchase = 145.30m, LastDiv = 0.82m, Industry = "Technology", MarketCap = 2230000000000},
-            new Stock { Id = 2, Symbol = "MSFT", CompanyName = "Microsoft Corporation", Purchase = 265.65m, LastDiv = 0.56m, Industry = "Technology", MarketCap = 1980000000000}
+            new Stock { Id = 1, Symbol = "AAPL", CompanyName = "Apple Inc.", Purchase = 145.30m, LastDiv = 0.82m, Industry = "Technology", MarketCap = 2230000000000 },
+            new Stock { Id = 2, Symbol = "MSFT", CompanyName = "Microsoft Corporation", Purchase = 265.65m, LastDiv = 0.56m, Industry = "Technology", MarketCap = 1980000000000 }
         );
 
             modelBuilder.Entity<Comment>().HasData(
