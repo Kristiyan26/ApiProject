@@ -11,7 +11,7 @@ namespace ApiProject.Controllers
 {
     [Route("api/stock")]
     [ApiController]
-    public class StockController : Controller
+    public class StockController : ControllerBase
     {
 
         private readonly IStockRepository _stockRepo;

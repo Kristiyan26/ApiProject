@@ -3,6 +3,8 @@ using ApiProject.Data;
 using ApiProject.Models;
 using ApiProject.Repositories;
 using ApiProject.Repositories.Interfaces;
+using ApiProject.Services;
+using ApiProject.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -63,6 +65,7 @@ namespace ApiProject
 
             builder.Services.AddScoped<IStockRepository, StockRepository>();
             builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+            builder.Services.AddScoped<ITokenService,TokenService>();    
 
             var app = builder.Build();
 
