@@ -18,5 +18,6 @@ namespace ApiProject.Repositories.Interfaces
 
         Task<bool> StockExists(int id);
 
+        Task<Stock?> GetBySymbolAsync(string symbol);
     }
 }

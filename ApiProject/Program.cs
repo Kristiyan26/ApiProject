@@ -61,8 +61,8 @@ namespace ApiProject
                 options.Password.RequireDigit = true;   
                 options.Password.RequireLowercase = true;
                 options.Password.RequireUppercase = true;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequiredLength = 12;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredLength = 8;
             })
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -93,6 +93,7 @@ namespace ApiProject
             builder.Services.AddScoped<IStockRepository, StockRepository>();
             builder.Services.AddScoped<ICommentRepository, CommentRepository>();
             builder.Services.AddScoped<ITokenService,TokenService>();    
+            builder.Services.AddScoped<IPortfolioRepository,PortfolioRepository>();
 
             var app = builder.Build();
 
