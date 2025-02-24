@@ -18,5 +18,11 @@ namespace ApiProject.Models
         [ForeignKey("StockId")]
         public Stock Stock { get; set; }
 
+        public string UserId { get; set; }
+
+
+        [ForeignKey("UserId")]
+        public AppUser User { get; set; }
+
     }
 }

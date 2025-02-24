@@ -40,13 +40,13 @@ namespace ApiProject.Repositories
 
         public async Task<List<Comment>> GetAllAsync()
         {
-            return await _context.Comments.ToListAsync();
+            return await _context.Comments.Include(c=>c.User).ToListAsync();
            
         }
 
         public async Task<Comment> GetByIdAsync(int id)
         {
-            Comment comment =await _context.Comments.FirstOrDefaultAsync(c => c.Id == id);
+            Comment comment =await _context.Comments.Include(c => c.User).FirstOrDefaultAsync(c => c.Id == id);
 
             if (comment == null)
             {

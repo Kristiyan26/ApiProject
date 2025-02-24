@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250222164742_Initial")]
+    [Migration("20250224190320_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -112,29 +112,17 @@ namespace ApiProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("StockId");
 
-                    b.ToTable("Comments");
+                    b.HasIndex("UserId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Content = "Apple stocks are performing exceptionally well.",
-                            CreateOn = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StockId = 1,
-                            Title = "Great Stock"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Content = "Microsoft has shown consistent growth.",
-                            CreateOn = new DateTime(2023, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StockId = 2,
-                            Title = "Steady Growth"
-                        });
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("ApiProject.Models.Portfolio", b =>
@@ -363,7 +351,15 @@ namespace ApiProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ApiProject.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Stock");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ApiProject.Models.Portfolio", b =>

@@ -1,8 +1,11 @@
 ﻿using ApiProject.DTOs.Comment;
+using ApiProject.Extentions;
 using ApiProject.Mappers;
 using ApiProject.Models;
 using ApiProject.Repositories;
 using ApiProject.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.ObjectPool;
 
@@ -15,12 +18,14 @@ namespace ApiProject.Controllers
     {
         private readonly ICommentRepository _commentRepo;
         private readonly IStockRepository _stockRepo;
+        private readonly UserManager<AppUser> _userManager;
 
 
-        public CommentController(ICommentRepository commentRepo, IStockRepository stockRepo)
+        public CommentController(ICommentRepository commentRepo, IStockRepository stockRepo, UserManager<AppUser> userManager)
         {
             _commentRepo = commentRepo;
             _stockRepo = stockRepo;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -57,6 +62,7 @@ namespace ApiProject.Controllers
 
         [HttpPost]
         [Route("{stockId:int}")]
+        [Authorize]
         public async Task<IActionResult> Create([FromRoute] int stockId,
                                                 [FromBody] CreateCommentDto commentDto)
         {
@@ -72,6 +78,12 @@ namespace ApiProject.Controllers
             }
 
             Comment comment = commentDto.ToCommentFromCreateDto(stockId);
+
+            string username = User.GetUsername();
+
+            AppUser appUser = await _userManager.FindByNameAsync(username.ToLower());
+
+            comment.UserId = appUser.Id;
 
             await _commentRepo.CreateAsync(comment);
 

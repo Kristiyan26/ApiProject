@@ -13,5 +13,7 @@ namespace ApiProject.DTOs.Comment
         public DateTime CreateOn { get; set; } = DateTime.Now;
         public int StockId { get; set; }
 
+        public string Username {  get; set; }   
+
     }
 }

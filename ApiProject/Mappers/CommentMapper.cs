@@ -13,7 +13,8 @@ namespace ApiProject.Mappers
                 Title = commentModel.Title,
                 Content = commentModel.Content,
                 CreateOn = commentModel.CreateOn,
-                StockId = commentModel.StockId
+                StockId = commentModel.StockId,
+                Username = commentModel.User.UserName
 
 
             };

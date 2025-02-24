@@ -54,11 +54,11 @@ namespace ApiProject
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));     
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
             builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
             {
-                options.Password.RequireDigit = true;   
+                options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireUppercase = true;
                 options.Password.RequireNonAlphanumeric = false;
@@ -68,12 +68,12 @@ namespace ApiProject
 
             builder.Services.AddAuthentication(options =>
             {
-                options.DefaultAuthenticateScheme=
-                options.DefaultChallengeScheme=
-                options.DefaultForbidScheme=
-                options.DefaultScheme=
-                options.DefaultSignInScheme=
-                options.DefaultSignOutScheme=JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme =
+                options.DefaultChallengeScheme =
+                options.DefaultForbidScheme =
+                options.DefaultScheme =
+                options.DefaultSignInScheme =
+                options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
 
             }).AddJwtBearer(options =>
             {
@@ -92,8 +92,8 @@ namespace ApiProject
 
             builder.Services.AddScoped<IStockRepository, StockRepository>();
             builder.Services.AddScoped<ICommentRepository, CommentRepository>();
-            builder.Services.AddScoped<ITokenService,TokenService>();    
-            builder.Services.AddScoped<IPortfolioRepository,PortfolioRepository>();
+            builder.Services.AddScoped<ITokenService, TokenService>();
+            builder.Services.AddScoped<IPortfolioRepository, PortfolioRepository>();
 
             var app = builder.Build();
 
@@ -106,7 +106,7 @@ namespace ApiProject
 
             app.UseHttpsRedirection();
 
-            app.UseAuthentication(); 
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
